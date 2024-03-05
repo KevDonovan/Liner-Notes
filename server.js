@@ -37,7 +37,23 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
                 console.log(result);
             })
         })
-
+        app.put('/api/records', (req, res) => {
+            console.log(req.body);
+            recordCollection.findOneAndUpdate({Album: 'Kid A'},
+                {
+                    $set: {Album: 'In Rainbows'},
+                },
+                {
+                    upsert: true,
+                }
+            )
+            .then(result => {
+                console.log(result);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        })
     });
 
 app.listen(PORT, () => {
