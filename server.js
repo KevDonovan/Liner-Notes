@@ -54,6 +54,16 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
                 console.log(err);
             })
         })
+        app.delete('/api/records', (req, res) => {
+            recordCollection.deleteOne({Album: req.body['Album']})
+            .then(result => {
+                res.json(`Deleted ${req.body['Album']} from records`);
+                console.log(`Deleted ${req.body['Album']} from records`);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        })
     });
 
 app.listen(PORT, () => {

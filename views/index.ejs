@@ -7,10 +7,17 @@
 </head>
 <body>
     <h1>Liner Notes</h1>
+
+    <form action="/api/records" method="POST">
+        <input type="text" name="Album" placeholder="Album" />
+        <input type="text" name="Band" placeholder="Artist" />
+        <button type="submit">Submit</button>
+    </form>
+
     <ul class="'records">
     <% for(var i = 0; i < records.length; i++) {%>
         <li>
-            <span><%= records[i].Album %></span>
+            <span><%= records[i].Album %></span> - 
             <span><%= records[i].Band %></span>
         </li>
     <% } %>
