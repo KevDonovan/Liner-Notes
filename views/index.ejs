@@ -19,10 +19,11 @@
         <li>
             <span><%= records[i].Album %></span> - 
             <span><%= records[i].Band %></span> 
-            <span class="thumbs" data-record="<%= records[i] %>">&#128077</span> 
-            <span class="delete" data-record="<%= records[i] %>">&#128465</span>
+            <span class="thumbs" data-record="<%= records[i]['_id'] %>">&#128077</span> 
+            <span class="delete" data-record="<%= records[i]['_id'] %>">&#128465</span>
         </li>
     <% } %>
     </ul>
+    <script src="/main.js"></script>
 </body>
 </html>

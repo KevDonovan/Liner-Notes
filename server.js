@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 
 const PORT = '3000';
 const password = 'B3!g3D0g88'
@@ -55,7 +56,7 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
             })
         })
         app.delete('/api/records', (req, res) => {
-            recordCollection.deleteOne({Album: req.body['Album']})
+            recordCollection.deleteOne({_id: new ObjectId(req.body["_id"])})
             .then(result => {
                 res.json(`Deleted ${req.body['Album']} from records`);
                 console.log(`Deleted ${req.body['Album']} from records`);
