@@ -32,17 +32,19 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
             })
         })
         app.post('/api/records', (req, res) => {
+            const newRecord = req.body;
+            newRecord.likes = 0;
             recordCollection
-            .insertOne(req.body)
+            .insertOne(newRecord)
             .then(result => {
                 console.log(result);
+                res.redirect('/');
             })
         })
         app.put('/api/records', (req, res) => {
-            console.log(req.body);
-            recordCollection.findOneAndUpdate({Album: 'Kid A'},
+            recordCollection.findOneAndUpdate({_id: new ObjectId(req.body["_id"])},
                 {
-                    $set: {Album: 'In Rainbows'},
+                    $inc: {likes: 1},
                 },
                 {
                     upsert: true,
@@ -56,10 +58,15 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
             })
         })
         app.delete('/api/records', (req, res) => {
+            let deletedRec = {};
+            recordCollection.findOne({_id: new ObjectId(req.body["_id"])})
+            .then(result => {
+                deletedRec = result;
+            });
+            
             recordCollection.deleteOne({_id: new ObjectId(req.body["_id"])})
             .then(result => {
-                res.json(`Deleted ${req.body['Album']} from records`);
-                console.log(`Deleted ${req.body['Album']} from records`);
+                console.log(`deleted ${deletedRec['Album']} from records`);
             })
             .catch(err => {
                 console.log(err);
