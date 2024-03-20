@@ -23,6 +23,7 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
         app.get('/', (req, res) => {
             db.collection('records')
             .find()
+            .sort({likes: -1})
             .toArray()
             .then(results => {
                 console.log(results);
