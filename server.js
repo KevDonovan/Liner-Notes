@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
-const PORT = '3000';
+const PORT = process.env.PORT || '3000';
 const password = 'B3!g3D0g88'
 const uri = `mongodb+srv://KDonovan:${password}@cluster0.eisqvwf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
@@ -78,6 +78,6 @@ MongoClient.connect(uri, {useUnifiedTopology: true,})
         })
     });
 
-app.listen(process.env.PORT || PORT, () => {
+app.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 })
